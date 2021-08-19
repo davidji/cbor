@@ -327,10 +327,20 @@ extern crate alloc;
 
 pub mod de;
 pub mod error;
-mod read;
 pub mod ser;
 pub mod tags;
+
+// This way of making read public or not public is pretty ugly, 
+// but I can't figure out another way to do it
+#[cfg(not(feature = "unsealed_read_write"))]
+mod read;
+#[cfg(feature = "unsealed_read_write")]
+pub mod read;
+
+#[cfg(not(feature = "unsealed_read_write"))]
 mod write;
+#[cfg(feature = "unsealed_read_write")]
+pub mod write;
 
 #[cfg(feature = "std")]
 pub mod value;

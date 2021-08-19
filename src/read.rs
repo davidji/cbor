@@ -1,3 +1,5 @@
+//! Extension point, allowing reading from arbitrary data structures
+//! generally only relevant for no_std
 #[cfg(feature = "alloc")]
 use alloc::{vec, vec::Vec};
 #[cfg(feature = "std")]
@@ -117,6 +119,7 @@ pub trait Read<'de> {
 
 /// Represents a reader that can return its current position
 pub trait Offset {
+    /// return the byte offset of the current position
     fn byte_offset(&self) -> usize;
 }
 

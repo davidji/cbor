@@ -1,3 +1,5 @@
+//! Extension point allowing writing from alternative data structures.
+//! Generally only relevent for no_std.
 #[cfg(feature = "alloc")]
 use alloc::vec::Vec;
 #[cfg(not(feature = "std"))]
@@ -108,6 +110,7 @@ impl Write for Vec<u8> {
 ))]
 impl private::Sealed for Vec<u8> {}
 
+/// Wrapper for Write to implement fmt::Write for
 #[cfg(not(feature = "std"))]
 #[derive(Debug)]
 pub struct FmtWrite<'a, W: Write>(&'a mut W);
